@@ -1,0 +1,55 @@
+// ml.js - ML Models for Sentiment Analysis, Credibility, and Data Fusion
+
+const sentiment = require("sentiment");
+const { NLPModel } = require("some-nlp-library");
+
+// Basic sentiment analysis
+function sentimentAnalysis(text) {
+    return sentiment(text).score;
+}
+
+// Credibility modeling function (sample)
+function credibilityModel(source) {
+    // Logic to calculate credibility score
+    return source === "trusted_source" ? 0.9 : 0.5;
+}
+
+// Data fusion logic to combine social media and news data
+function dataFusion(socialData, newsData) {
+    // Combining social and news data, filtering, and merging
+    return [...socialData, ...newsData];
+}
+
+module.exports = { sentimentAnalysis, credibilityModel, dataFusion };
+
+
+
+
+// server.js (Adding Socket.io for Real-time Updates)
+
+const http = require("http");
+const socketIo = require("socket.io");
+
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on("connection", (socket) => {
+    console.log("New client connected");
+
+    socket.on("disconnect", () => {
+        console.log("Client disconnected");
+    });
+
+    // Emit new data to clients
+    setInterval(() => {
+        socket.emit("new_event", {
+            title: "Earthquake in City X",
+            description: "5.3 magnitude earthquake detected",
+            severity: 3,
+            credibility_score: 0.85,
+            sentiment_score: 0.2
+        });
+    }, 5000);
+});
+
+server.listen(3000, () => console.log("Server with WebSocket running on port 3000"));
