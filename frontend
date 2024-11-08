@@ -1,0 +1,35 @@
+// Dashboard.js - Real-Time Dashboard with React
+
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:3000");
+
+function Dashboard() {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        socket.on("new_event", (event) => {
+            setEvents((prevEvents) => [event, ...prevEvents]);
+        });
+    }, []);
+
+    return (
+        <div>
+            <h1>Disaster Management Dashboard</h1>
+            <div>
+                {events.map((event, index) => (
+                    <div key={index}>
+                        <h2>{event.title}</h2>
+                        <p>{event.description}</p>
+                        <p>Severity: {event.severity}</p>
+                        <p>Credibility: {event.credibility_score}</p>
+                        <p>Sentiment: {event.sentiment_score}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default Dashboard;
