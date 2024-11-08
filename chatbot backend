@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class ChatbotController extends Controller
+{
+    public function index()
+    {
+        return view('chatbot');
+    }
+
+    public function getResponse(Request $request)
+    {
+        $message = $request->input('message');
+
+        // Basic chatbot responses (You can expand this logic as needed)
+        $responses = [
+            'hello' => 'Hi there! How can I help you?',
+            'how are you' => 'I am a bot, so I don’t have feelings, but thanks for asking!',
+            'what is your name' => 'I am a simple chatbot created in Laravel.',
+            'bye' => 'Goodbye! Have a great day!'
+        ];
+
+        // Check if message exists in predefined responses
+        $response = $responses[strtolower($message)] ?? "I'm sorry, I don't understand that.";
+
+        return response()->json(['response' => $response]);
+    }
+}
