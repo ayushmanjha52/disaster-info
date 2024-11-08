@@ -4,6 +4,7 @@ A comprehensive software solution to collect, aggregate, and distribute real-tim
 This project provides a web and mobile interface to deliver accurate, up-to-date disaster data to users, helping communities prepare for and respond to natural and man-made crises.
 
 Features:
+
 Real-Time Data Aggregation: Pulls information from various reliable sources, including government agencies, weather data, and social media.
 
 Location-Based Notifications: Sends alerts based on users' location for immediate response.
