@@ -1,0 +1,12 @@
+-- Table to store disaster events
+CREATE TABLE disaster_events (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    description TEXT,
+    severity INT,
+    location GEOGRAPHY(Point, 4326),
+    source TEXT,
+    credibility_score FLOAT,
+    sentiment_score FLOAT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
