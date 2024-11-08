@@ -1,0 +1,31 @@
+// server.js - Main Server Setup
+
+const express = require("express");
+const bodyParser = require("body-parser");
+const { sentimentAnalysis, credibilityModel, dataFusion } = require("./ml");
+const { fetchSocialMediaData, fetchNewsData } = require("./data_sources");
+
+const app = express();
+app.use(bodyParser.json());
+
+// Route for ingesting data
+app.post("/ingest", async (req, res) => {
+    try {
+        const socialMediaData = await fetchSocialMediaData();
+        const newsData = await fetchNewsData();
+        
+        const processedData = dataFusion(socialMediaData, newsData);
+        res.status(200).send(processedData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Data ingestion failed");
+    }
+});
+
+// Route for real-time feed
+app.get("/realtime-feed", (req, res) => {
+    // Code to send real-time data via WebSocket or Server-Sent Events
+});
+
+// Start Server
+app.listen(3000, () => console.log("Server running on port 3000"));
