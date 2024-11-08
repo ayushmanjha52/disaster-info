@@ -1,0 +1,29 @@
+// App.js - Basic Real-Time Event Feed in React Native
+
+import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView } from "react-native";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:3000");
+
+export default function App() {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        socket.on("new_event", (event) => {
+            setEvents((prevEvents) => [event, ...prevEvents]);
+        });
+    }, []);
+
+    return (
+        <ScrollView>
+            {events.map((event, index) => (
+                <View key={index} style={{ padding: 10 }}>
+                    <Text style={{ fontWeight: "bold" }}>{event.title}</Text>
+                    <Text>{event.description}</Text>
+                    <Text>Severity: {event.severity}</Text>
+                </View>
+            ))}
+        </ScrollView>
+    );
+}
