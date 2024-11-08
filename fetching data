@@ -1,0 +1,17 @@
+// data_sources.js - External Data Fetching
+
+const axios = require("axios");
+
+// Example function for fetching Twitter data
+async function fetchSocialMediaData() {
+    const response = await axios.get("https://api.twitter.com/...", { headers: { /* Auth Headers */ } });
+    return response.data;
+}
+
+// Example function for fetching news data
+async function fetchNewsData() {
+    const response = await axios.get("https://newsapi.org/v2/top-headlines?category=disaster&..."); 
+    return response.data;
+}
+
+module.exports = { fetchSocialMediaData, fetchNewsData };
